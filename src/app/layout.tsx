@@ -1,20 +1,20 @@
-import type { Metadata } from "next";
-import LayoutClient from "./layout.client";
-import { Container, Stack } from "@mui/material";
-import Head from "next/head";
+import type { Metadata } from 'next'
+import LayoutClient from './layout.client'
+import { Container, Stack } from '@mui/material'
+import Head from 'next/head'
 
 export const metadata: Metadata = {
-  title: "Lobby Test",
-  description: "Frontend developer test.",
+  title: 'Lobby Test',
+  description: 'Frontend developer test.',
   icons: {
-    icon: "/favicon.ico",
+    icon: '/favicon.ico',
   },
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="pt-br">
@@ -45,5 +45,5 @@ export default function RootLayout({
         </LayoutClient>
       </body>
     </html>
-  );
+  )
 }
