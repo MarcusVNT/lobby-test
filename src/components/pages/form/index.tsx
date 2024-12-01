@@ -1,7 +1,11 @@
+'use client'
+
 import { Button, MenuItem, Stack, TextField, Typography } from '@mui/material'
 import Grid from '@mui/material/Grid2'
+import { useRouter } from 'next/navigation'
 
 export default function Form() {
+  const router = useRouter()
   return (
     <Stack alignItems="center" justifyContent="center" minHeight="100vh">
       <Stack
@@ -122,7 +126,11 @@ export default function Form() {
           <Button color="primary" variant="outlined">
             Voltar
           </Button>
-          <Button color="primary" variant="contained">
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() => router.push('/presente-resgatado')}
+          >
             Concluir
           </Button>
         </Stack>
