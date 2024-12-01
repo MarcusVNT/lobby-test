@@ -5,8 +5,11 @@ import Grid from '@mui/material/Grid2'
 import Logo from '/public/images/logo.svg'
 import Vector from '/public/images/vector.svg'
 import Point from '/public/images/point.svg'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
+  const router = useRouter()
+
   return (
     <Stack alignItems="center" justifyContent="center" minHeight="100vh">
       <Stack
@@ -41,7 +44,11 @@ export default function Home() {
             </Stack>
           </Grid>
           <Grid size={12}>
-            <Button variant="contained" color="primary">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => router.push('/formulario-de-resgate')}
+            >
               Começar
             </Button>
           </Grid>
