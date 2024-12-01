@@ -1,16 +1,5 @@
-import { Stack, Typography } from "@mui/material";
+import Home from '@/components/pages/home'
 
-export default function Home() {
-  return (
-    <Stack>
-      <Typography
-        variant="h1"
-        sx={{
-          color: "primary.main",
-        }}
-      >
-        Bem Vindo!
-      </Typography>
-    </Stack>
-  );
+export default function HomePage() {
+  return <Home />
 }
