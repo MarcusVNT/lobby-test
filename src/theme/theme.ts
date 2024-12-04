@@ -75,6 +75,22 @@ export const theme = createTheme({
     MuiTextField: {
       styleOverrides: {
         root: {
+          '& .MuiInputBase-input': {
+            color: '#64748b',
+          },
+          '& .MuiOutlinedInput-root': {
+            '& .MuiOutlinedInput-notchedOutline': {
+              borderColor: '#B1B9C5',
+            },
+            '&:hover .MuiOutlinedInput-notchedOutline': {
+              borderColor: '#B1B9C5',
+              borderWidth: '2px',
+            },
+            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+              borderWidth: '2px',
+            },
+          },
+
           '& .MuiInput-underline:after': {
             borderBottomColor: '#B1B9C5',
           },
@@ -82,10 +98,7 @@ export const theme = createTheme({
             borderBottomColor: '#B1B9C5',
           },
 
-          '& .MuiInput-underline:hover:after': {
-            borderBottomColor: '#B1B9C5',
-          },
-          '& .MuiInput-underline:hover:before': {
+          '& .MuiInput-root:hover:not(.Mui-disabled):before': {
             borderBottomColor: '#B1B9C5',
           },
           '& .MuiInput-underline.Mui-focused:after': {

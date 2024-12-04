@@ -5,18 +5,7 @@ import {
   postRedeemGift,
 } from '@/api/redeem-gift/redeem-gift'
 import { PostRedeemGiftType } from '@/types/redeem-gift/postRedeemGiftType'
-import {
-  Button,
-  FormControlLabel,
-  FormLabel,
-  Menu,
-  MenuItem,
-  Radio,
-  RadioGroup,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material'
+import { Button, MenuItem, Stack, TextField, Typography } from '@mui/material'
 import Grid from '@mui/material/Grid2'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useParams, useRouter } from 'next/navigation'
@@ -94,10 +83,6 @@ export default function Form() {
   const productSizes =
     redeemPageDetails?.items.filter(item => item.sizes.length > 0) || []
 
-  // console.log('detalhes: ', redeemPageDetails)
-  // console.log('questionsText: ', questionsText)
-  // console.log('productSizes: ', productSizes)
-
   const handleOnSubmit = (data: PostRedeemGiftType) => {
     if (!params.id) {
       console.error('ID do resgate não encontrado')
@@ -119,18 +104,23 @@ export default function Form() {
         maxWidth="1024px"
         width="100%"
       >
-        <Typography fontSize="1.25rem" textAlign="center" fontWeight="600">
+        <Typography
+          fontSize="1.25rem"
+          textAlign="center"
+          fontWeight="600"
+          marginBottom="40px"
+        >
           Finalize seu resgate! 🚚
         </Typography>
 
         <form onSubmit={handleSubmit(handleOnSubmit)}>
-          <Grid container marginTop="40px" spacing={2}>
-            <Grid size={12} marginBottom="40px">
+          <Grid container spacing="20px" marginBottom="40px">
+            <Grid size={12} marginBottom="12px">
               <Typography variant="h2" fontWeight="600">
                 Dados do destinatário
               </Typography>
             </Grid>
-            <Grid size={12} marginBottom="40px">
+            <Grid size={12} marginBottom="12px">
               <Controller
                 name="redeemer_name"
                 control={control}
@@ -148,12 +138,13 @@ export default function Form() {
                     helperText={error?.message}
                     label="Nome completo*"
                     variant="standard"
+                    size="small"
                     fullWidth
                   />
                 )}
               />
             </Grid>
-            <Grid size={3} marginBottom="40px">
+            <Grid size={3}>
               <Controller
                 name="redeemer_document_number"
                 control={control}
@@ -175,12 +166,13 @@ export default function Form() {
                     helperText={error?.message}
                     label="CPF ou CNPJ*"
                     variant="standard"
+                    size="small"
                     fullWidth
                   />
                 )}
               />
             </Grid>
-            <Grid size={3} marginBottom="40px">
+            <Grid size={3}>
               <Controller
                 name="redeemer_phone"
                 control={control}
@@ -196,13 +188,14 @@ export default function Form() {
                     helperText={error?.message}
                     label="Telefone"
                     variant="standard"
+                    size="small"
                     fullWidth
                   />
                   // </ReactInputMask>
                 )}
               />
             </Grid>
-            <Grid size={6} marginBottom="40px">
+            <Grid size={6}>
               <Controller
                 name="redeemer_email"
                 control={control}
@@ -220,6 +213,7 @@ export default function Form() {
                     helperText={error?.message}
                     label="E-mail*"
                     variant="standard"
+                    size="small"
                     fullWidth
                   />
                 )}
@@ -227,13 +221,13 @@ export default function Form() {
             </Grid>
           </Grid>
 
-          <Grid container spacing={2}>
-            <Grid size={12} marginBottom="40px">
+          <Grid container spacing="20px" marginBottom="40px">
+            <Grid size={12} marginBottom="12px">
               <Typography variant="h2" fontWeight="600">
                 Endereço de entrega
               </Typography>
             </Grid>
-            <Grid size={6} marginBottom="40px">
+            <Grid size={6} marginBottom="12px">
               <Controller
                 name="redeemer_zipcode"
                 control={control}
@@ -255,12 +249,13 @@ export default function Form() {
                     helperText={error?.message}
                     label="CEP*"
                     variant="standard"
+                    size="small"
                     fullWidth
                   />
                 )}
               />
             </Grid>
-            <Grid size={6} marginBottom="40px">
+            <Grid size={6} marginBottom="12px">
               <Controller
                 name="redeemer_street"
                 control={control}
@@ -274,12 +269,13 @@ export default function Form() {
                     helperText={error?.message}
                     label="Rua*"
                     variant="standard"
+                    size="small"
                     fullWidth
                   />
                 )}
               />
             </Grid>
-            <Grid size={3} marginBottom="40px">
+            <Grid size={3} marginBottom="12px">
               <Controller
                 name="redeemer_number"
                 control={control}
@@ -298,7 +294,7 @@ export default function Form() {
                 )}
               />
             </Grid>
-            <Grid size={3} marginBottom="40px">
+            <Grid size={3} marginBottom="12px">
               <Controller
                 name="redeemer_complement"
                 control={control}
@@ -312,7 +308,7 @@ export default function Form() {
                 )}
               />
             </Grid>
-            <Grid size={6} marginBottom="40px">
+            <Grid size={6} marginBottom="12px">
               <Controller
                 name="redeemer_neighborhood"
                 control={control}
@@ -331,7 +327,7 @@ export default function Form() {
                 )}
               />
             </Grid>
-            <Grid size={6} marginBottom="40px">
+            <Grid size={6}>
               <Controller
                 name="redeemer_city"
                 control={control}
@@ -354,7 +350,7 @@ export default function Form() {
                 )}
               />
             </Grid>
-            <Grid size={3} marginBottom="40px">
+            <Grid size={3}>
               <Controller
                 name="redeemer_state"
                 control={control}
@@ -379,7 +375,7 @@ export default function Form() {
                 )}
               />
             </Grid>
-            <Grid size={3} marginBottom="40px">
+            <Grid size={3}>
               <Controller
                 name="redeemer_country"
                 control={control}
@@ -408,8 +404,8 @@ export default function Form() {
             </Grid>
           </Grid>
 
-          <Grid container spacing={2}>
-            <Grid size={12} marginBottom="40px">
+          <Grid container spacing="20px" marginBottom="40px">
+            <Grid size={12} marginBottom="12px">
               <Typography variant="h2" fontWeight="600">
                 Tamanhos
               </Typography>
@@ -417,11 +413,7 @@ export default function Form() {
 
             {productSizes.length > 0 &&
               productSizes?.map((product, index) => (
-                <Grid
-                  size={6}
-                  key={product.customer_product_id}
-                  marginBottom="40px"
-                >
+                <Grid size={6} key={product.customer_product_id}>
                   <Controller
                     name={`items.${index}.customer_product_id`}
                     control={control}
@@ -442,6 +434,7 @@ export default function Form() {
                         value={field.value || ''}
                         label="Qual seu tamanho de camiseta?*"
                         variant="standard"
+                        size="small"
                         select
                         fullWidth
                       >
@@ -457,14 +450,14 @@ export default function Form() {
               ))}
           </Grid>
 
-          <Grid container spacing={2}>
-            <Grid size={12} marginBottom="40px">
+          <Grid container spacing="20px">
+            <Grid size={12} marginBottom="12px">
               <Typography variant="h2" fontWeight="600">
                 Perguntas extras
               </Typography>
             </Grid>
 
-            <Grid size={12} marginBottom="40px">
+            <Grid size={12} marginBottom="12px">
               {questionsText.length > 0 &&
                 questionsText.map(question => (
                   <Grid key={question.id}>
@@ -477,6 +470,7 @@ export default function Form() {
                           label={question.question}
                           value={field.value ?? ''}
                           variant="standard"
+                          size="small"
                           fullWidth
                           error={!!error}
                           helperText={error?.message}
@@ -486,7 +480,7 @@ export default function Form() {
                   </Grid>
                 ))}
             </Grid>
-            <Grid size={6} marginBottom="40px">
+            <Grid size={3} marginBottom="12px">
               {questionsDate.length > 0 &&
                 questionsDate.map(question => (
                   <Grid key={question.id}>
@@ -494,10 +488,22 @@ export default function Form() {
                       name={`extra_question_responses.${question.id}.answer`}
                       control={control}
                       render={({ field }) => (
-                        <DatePicker
+                        // <DatePicker
+                        //   {...field}
+                        //   value={field.value || null}
+                        //   label="Data de nascimento"
+                        // />
+                        <TextField
                           {...field}
-                          value={field.value || null}
-                          label="Data de nascimento"
+                          value={field.value || ''}
+                          label={question.question}
+                          variant="standard"
+                          size="small"
+                          type="date"
+                          fullWidth
+                          slotProps={{
+                            inputLabel: { shrink: true },
+                          }}
                         />
                       )}
                     />
@@ -505,7 +511,7 @@ export default function Form() {
                 ))}
             </Grid>
 
-            <Grid size={6} marginBottom="40px">
+            <Grid size={5} marginBottom="12px">
               {questionsSelectOne.length > 0 &&
                 questionsSelectOne.map(question => (
                   <Grid key={question.id}>
@@ -518,6 +524,7 @@ export default function Form() {
                           value={field.value || ''}
                           label={question.question}
                           variant="standard"
+                          size="small"
                           select
                           fullWidth
                         >
@@ -532,7 +539,7 @@ export default function Form() {
                   </Grid>
                 ))}
             </Grid>
-            <Grid size={12} marginBottom="40px">
+            <Grid size={12} marginBottom="12px">
               {questionsTextArea.length > 0 &&
                 questionsTextArea.map((question, index) => (
                   <Grid key={question.id}>
@@ -543,9 +550,14 @@ export default function Form() {
                         <TextField
                           {...field}
                           label={question.question}
-                          variant="standard"
+                          variant="outlined"
+                          size="small"
                           fullWidth
                           multiline
+                          sx={{
+                            borderColor: '#B1B9C5',
+                            '&:focus': { borderColor: '#64748b' },
+                          }}
                           rows={5}
                         />
                       )}
@@ -556,7 +568,11 @@ export default function Form() {
           </Grid>
 
           <Stack flexDirection="row" justifyContent="space-between">
-            <Button color="primary" variant="outlined">
+            <Button
+              color="primary"
+              variant="outlined"
+              onClick={() => router.push(`/${params}`)}
+            >
               Voltar
             </Button>
             <Button color="primary" variant="contained" type="submit">
