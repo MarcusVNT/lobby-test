@@ -55,10 +55,16 @@ export default function RedeemedGift() {
           marginBottom="20px"
         >
           <Vector />
-          <Typography fontSize=".875rem">2024</Typography>
           <Point width="2px" />
-          <Typography fontSize=".875rem">
-            Lobby.tech em parceria com a Lobby
+          <Typography fontWeight="600" fontSize=".875rem">
+            2024
+          </Typography>
+          <Typography fontWeight="600" fontSize=".875rem">
+            Lobby.tech{' '}
+            <Typography component="span" fontSize=".875rem">
+              em parceria com a
+            </Typography>{' '}
+            Lobby
           </Typography>
         </Stack>
       </Stack>
