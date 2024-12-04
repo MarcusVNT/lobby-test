@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 
 export default function Home() {
   const router = useRouter()
+  const paramsID = '5c7e9bc8-e063-4d86-8e2c-eccce6f3ee1c'
 
   return (
     <Stack alignItems="center" justifyContent="center" minHeight="100vh">
@@ -47,7 +48,7 @@ export default function Home() {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => router.push('/formulario-de-resgate')}
+              onClick={() => router.push(`/formulario-de-resgate/${paramsID}`)}
             >
               Começar
             </Button>
