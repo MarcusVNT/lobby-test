@@ -6,10 +6,21 @@ import Logo from '/public/images/logo.svg'
 import Vector from '/public/images/vector.svg'
 import Point from '/public/images/point.svg'
 import { useRouter } from 'next/navigation'
+import { useQuery } from '@tanstack/react-query'
+import { getRedeemPageDetails } from '@/api/redeem-gift/redeem-gift'
 
 export default function Home() {
   const router = useRouter()
   const paramsID = '5c7e9bc8-e063-4d86-8e2c-eccce6f3ee1c'
+
+  const { data } = useQuery({
+    queryKey: ['redeemPage', paramsID],
+    queryFn: () => getRedeemPageDetails(paramsID),
+  })
+
+  if (!data) {
+    return null
+  }
 
   return (
     <Stack alignItems="center" justifyContent="center" minHeight="100vh">
@@ -36,7 +47,7 @@ export default function Home() {
               marginBottom="40px"
             >
               <Typography variant="h1" fontSize="2.5rem">
-                Bem vindo!
+                {data.title}
               </Typography>
               <Typography color="primary.light" fontSize="1.125rem">
                 Estamos muito felizes em ter você em nossa equipe! Preencha as
