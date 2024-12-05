@@ -14,7 +14,7 @@ export default function RedeemedGift() {
         justifyContent="center"
         borderRadius={'24px'}
         bgcolor="#fff"
-        padding="126px 0 0 0"
+        padding={{ xs: '126px 20px 0 20px', sm: '126px 0 0 0' }}
         textAlign="center"
         maxWidth="1024px"
         width="100%"
@@ -31,14 +31,24 @@ export default function RedeemedGift() {
               mx="auto"
               marginBottom="40px"
             >
-              <Typography variant="h1" fontSize="2.5rem">
+              <Typography
+                variant="h1"
+                component="h1"
+                fontSize={{ xs: '1.625rem', md: '2.5rem' }}
+              >
                 Presente resgatado!🎉🥳
               </Typography>
               <Stack>
-                <Typography color="primary.light" fontSize="1.125rem">
+                <Typography
+                  color="primary.light"
+                  fontSize={{ xs: '1rem', md: '1.125rem' }}
+                >
                   Seu pedido está em andamento!
                 </Typography>{' '}
-                <Typography color="primary.light" fontSize="1.125rem">
+                <Typography
+                  color="primary.light"
+                  fontSize={{ xs: '1rem', md: '1.125rem' }}
+                >
                   E não se preocupe, as alterações de status do envio chegam
                   todas em seu e-mail!
                 </Typography>

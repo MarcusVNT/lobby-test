@@ -141,7 +141,7 @@ export default function Form() {
       <Stack
         borderRadius={'24px'}
         bgcolor="#fff"
-        padding="40px 64px"
+        padding={{ xs: '40px 20px', sm: '40px 64px' }}
         maxWidth="1024px"
         width="100%"
       >
@@ -150,6 +150,7 @@ export default function Form() {
           textAlign="center"
           fontWeight="600"
           marginBottom="40px"
+          component="h1"
         >
           Finalize seu resgate! 🚚
         </Typography>
@@ -157,7 +158,7 @@ export default function Form() {
         <form onSubmit={handleSubmit(handleOnSubmit)}>
           <Grid container spacing="20px" marginBottom="40px">
             <Grid size={12} marginBottom="12px">
-              <Typography variant="h2" fontWeight="600">
+              <Typography variant="h2" component="h2" fontWeight="600">
                 Dados do destinatário
               </Typography>
             </Grid>
@@ -185,7 +186,7 @@ export default function Form() {
                 )}
               />
             </Grid>
-            <Grid size={3}>
+            <Grid size={{ xs: 6, md: 3 }}>
               <Controller
                 name="redeemer_document_number"
                 control={control}
@@ -208,7 +209,7 @@ export default function Form() {
                 )}
               />
             </Grid>
-            <Grid size={3}>
+            <Grid size={{ xs: 6, md: 3 }}>
               <Controller
                 name="redeemer_phone"
                 control={control}
@@ -229,7 +230,7 @@ export default function Form() {
                 )}
               />
             </Grid>
-            <Grid size={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Controller
                 name="redeemer_email"
                 control={control}
@@ -258,11 +259,11 @@ export default function Form() {
 
           <Grid container spacing="20px" marginBottom="40px">
             <Grid size={12} marginBottom="12px">
-              <Typography variant="h2" fontWeight="600">
+              <Typography variant="h2" component="h2" fontWeight="600">
                 Endereço de entrega
               </Typography>
             </Grid>
-            <Grid size={6} marginBottom="12px">
+            <Grid size={{ xs: 12, md: 6 }} marginBottom="12px">
               <Controller
                 name="redeemer_zipcode"
                 control={control}
@@ -285,7 +286,7 @@ export default function Form() {
                 )}
               />
             </Grid>
-            <Grid size={6} marginBottom="12px">
+            <Grid size={{ xs: 12, md: 6 }} marginBottom="12px">
               <Controller
                 name="redeemer_street"
                 control={control}
@@ -305,7 +306,7 @@ export default function Form() {
                 )}
               />
             </Grid>
-            <Grid size={3} marginBottom="12px">
+            <Grid size={{ xs: 6, md: 3 }} marginBottom="12px">
               <Controller
                 name="redeemer_number"
                 control={control}
@@ -324,14 +325,14 @@ export default function Form() {
                 )}
               />
             </Grid>
-            <Grid size={3} marginBottom="12px">
+            <Grid size={{ xs: 6, md: 3 }} marginBottom="12px">
               <Controller
                 name="redeemer_complement"
                 control={control}
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Complemento*"
+                    label="Complemento"
                     variant="standard"
                     fullWidth
                   />
@@ -380,7 +381,7 @@ export default function Form() {
                 )}
               />
             </Grid>
-            <Grid size={3}>
+            <Grid size={{ xs: 12, md: 3 }}>
               <Controller
                 name="redeemer_state"
                 control={control}
@@ -406,7 +407,7 @@ export default function Form() {
                 )}
               />
             </Grid>
-            <Grid size={3}>
+            <Grid size={{ xs: 12, md: 3 }}>
               <Controller
                 name="redeemer_country"
                 control={control}
@@ -432,14 +433,17 @@ export default function Form() {
 
           <Grid container spacing="20px" marginBottom="40px">
             <Grid size={12} marginBottom="12px">
-              <Typography variant="h2" fontWeight="600">
+              <Typography variant="h2" component="h2" fontWeight="600">
                 Tamanhos
               </Typography>
             </Grid>
 
             {productSizes.length > 0 &&
               productSizes?.map((product, index) => (
-                <Grid size={6} key={product.customer_product_id}>
+                <Grid
+                  size={{ xs: 12, sm: 6 }}
+                  key={product.customer_product_id}
+                >
                   <Controller
                     name={`items.${index}.customer_product_id`}
                     control={control}
@@ -478,7 +482,7 @@ export default function Form() {
 
           <Grid container spacing="20px">
             <Grid size={12} marginBottom="12px">
-              <Typography variant="h2" fontWeight="600">
+              <Typography variant="h2" component="h2" fontWeight="600">
                 Perguntas extras
               </Typography>
             </Grid>
@@ -506,7 +510,7 @@ export default function Form() {
                   </Grid>
                 ))}
             </Grid>
-            <Grid size={3} marginBottom="12px">
+            <Grid size={{ xs: 6, md: 3 }} marginBottom="12px">
               {questionsDate.length > 0 &&
                 questionsDate.map(question => (
                   <Grid key={question.id}>
@@ -537,7 +541,7 @@ export default function Form() {
                 ))}
             </Grid>
 
-            <Grid size={5} marginBottom="12px">
+            <Grid size={{ xs: 12, md: 6 }} marginBottom="12px">
               {questionsSelectOne.length > 0 &&
                 questionsSelectOne.map(question => (
                   <Grid key={question.id}>
