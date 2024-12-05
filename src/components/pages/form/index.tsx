@@ -10,8 +10,49 @@ import Grid from '@mui/material/Grid2'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useParams, useRouter } from 'next/navigation'
 import { Controller, useForm } from 'react-hook-form'
-import { DatePicker } from '@mui/x-date-pickers'
-import React from 'react'
+import masks from '../utils/masks'
+
+const brazilStates = [
+  { label: 'Acre', value: 'AC' },
+  { label: 'Alagoas', value: 'AL' },
+  { label: 'Amazonas', value: 'AM' },
+  { label: 'Bahia', value: 'BA' },
+  { label: 'Ceará', value: 'CE' },
+  { label: 'Espírito Santo', value: 'ES' },
+  { label: 'Goiás', value: 'GO' },
+  { label: 'Maranhão', value: 'MA' },
+  { label: 'Mato Grosso', value: 'MT' },
+  { label: 'Mato Grosso do Sul', value: 'MS' },
+  { label: 'Minas Gerais', value: 'MG' },
+  { label: 'Pará', value: 'PA' },
+  { label: 'Paraíba', value: 'PB' },
+  { label: 'Paraná', value: 'PR' },
+  { label: 'Pernambuco', value: 'PE' },
+  { label: 'Piauí', value: 'PI' },
+  { label: 'Rio de Janeiro', value: 'RJ' },
+  { label: 'Rio Grande do Norte', value: 'RN' },
+  { label: 'Rio Grande do Sul', value: 'RS' },
+  { label: 'Rondônia', value: 'RO' },
+  { label: 'Roraima', value: 'RR' },
+  { label: 'Santa Catarina', value: 'SC' },
+  { label: 'São Paulo', value: 'SP' },
+  { label: 'Sergipe', value: 'SE' },
+  { label: 'Tocantins', value: 'TO' },
+  { label: 'Distrito Federal', value: 'DF' },
+]
+
+const countries = [
+  { value: 'BR', label: 'Brasil' },
+  { value: 'AR', label: 'Argentina' },
+  { value: 'URU', label: 'Uruguay' },
+  { value: 'CL', label: 'Chile' },
+  { value: 'COL', label: 'Colombia' },
+  { value: 'PER', label: 'Peru' },
+  { value: 'PAR', label: 'Paraguay' },
+  { value: 'VEN', label: 'Venezuela' },
+  { value: 'ECU', label: 'Ecuador' },
+  { value: 'BOL', label: 'Bolivia' },
+]
 
 export default function Form() {
   const router = useRouter()
@@ -150,14 +191,6 @@ export default function Form() {
                 control={control}
                 rules={{
                   required: 'Este campo é obrigatório.',
-                  minLength: {
-                    value: 11,
-                    message: 'CPF ou CNPJ inválido.',
-                  },
-                  maxLength: {
-                    value: 14,
-                    message: 'CPF ou CNPJ inválido.',
-                  },
                 }}
                 render={({ field, fieldState: { error, invalid } }) => (
                   <TextField
@@ -168,6 +201,9 @@ export default function Form() {
                     variant="standard"
                     size="small"
                     fullWidth
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      field.onChange(masks.cpf_cnpj(e))
+                    }
                   />
                 )}
               />
@@ -177,11 +213,6 @@ export default function Form() {
                 name="redeemer_phone"
                 control={control}
                 render={({ field, fieldState: { error, invalid } }) => (
-                  // <ReactInputMask
-                  //   mask="(99) 99999-9999"
-                  //   value={field.value}
-                  //   onChange={field.onChange}
-                  // >
                   <TextField
                     {...field}
                     error={invalid}
@@ -190,8 +221,11 @@ export default function Form() {
                     variant="standard"
                     size="small"
                     fullWidth
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      field.onChange(masks.phone(e))
+                    }
+                    value={field.value || ''}
                   />
-                  // </ReactInputMask>
                 )}
               />
             </Grid>
@@ -202,7 +236,8 @@ export default function Form() {
                 rules={{
                   required: 'E-mail é obrigatório.',
                   pattern: {
-                    value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                    value:
+                      /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}(?:\.[a-z]{2})?$/,
                     message: 'E-mail inválido.',
                   },
                 }}
@@ -233,14 +268,6 @@ export default function Form() {
                 control={control}
                 rules={{
                   required: 'CEP é obrigatório.',
-                  minLength: {
-                    value: 8,
-                    message: 'CEP inválido.',
-                  },
-                  maxLength: {
-                    value: 8,
-                    message: 'CEP inválido.',
-                  },
                 }}
                 render={({ field, fieldState: { error, invalid } }) => (
                   <TextField
@@ -251,6 +278,9 @@ export default function Form() {
                     variant="standard"
                     size="small"
                     fullWidth
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      field.onChange(masks.cep(e))
+                    }
                   />
                 )}
               />
@@ -367,10 +397,11 @@ export default function Form() {
                     select
                     fullWidth
                   >
-                    //fazer uma array dos estados do brasil.
-                    <MenuItem value="SP">São Paulo</MenuItem>
-                    <MenuItem value="RJ">Rio de Janeiro</MenuItem>
-                    <MenuItem value="MG">Minas Gerais</MenuItem>
+                    {brazilStates.map(state => (
+                      <MenuItem key={state.value} value={state.value}>
+                        {state.label}
+                      </MenuItem>
+                    ))}
                   </TextField>
                 )}
               />
@@ -388,16 +419,11 @@ export default function Form() {
                     select
                     fullWidth
                   >
-                    <MenuItem value="BR">Brasil</MenuItem>
-                    <MenuItem value="AR">Argentina</MenuItem>
-                    <MenuItem value="URU">Uruguay</MenuItem>
-                    <MenuItem value="CL">Chile</MenuItem>
-                    <MenuItem value="COL">Colombia</MenuItem>
-                    <MenuItem value="PER">Peru</MenuItem>
-                    <MenuItem value="PAR">Paraguay</MenuItem>
-                    <MenuItem value="VEN">Venezuela</MenuItem>
-                    <MenuItem value="ECU">Ecuador</MenuItem>
-                    <MenuItem value="BOL">Bolivia</MenuItem>
+                    {countries.map(country => (
+                      <MenuItem key={country.value} value={country.value}>
+                        {country.label}
+                      </MenuItem>
+                    ))}
                   </TextField>
                 )}
               />
@@ -539,7 +565,7 @@ export default function Form() {
                   </Grid>
                 ))}
             </Grid>
-            <Grid size={12} marginBottom="12px">
+            <Grid size={12}>
               {questionsTextArea.length > 0 &&
                 questionsTextArea.map((question, index) => (
                   <Grid key={question.id}>
@@ -567,7 +593,7 @@ export default function Form() {
             </Grid>
           </Grid>
 
-          <Stack flexDirection="row" justifyContent="space-between">
+          <Stack flexDirection="row" justifyContent="space-between" mt="40px">
             <Button
               color="primary"
               variant="outlined"
