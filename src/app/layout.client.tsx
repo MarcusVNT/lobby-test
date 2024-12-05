@@ -1,18 +1,22 @@
-"use client";
+'use client'
 
-import { theme } from "@/theme/theme";
-import CssBaseline from "@mui/material/CssBaseline";
-import { ThemeProvider } from "@mui/material/styles";
+import { queryClient } from '@/lib/react-query'
+import { theme } from '@/theme/theme'
+import CssBaseline from '@mui/material/CssBaseline'
+import { ThemeProvider } from '@mui/material/styles'
+import { QueryClientProvider } from '@tanstack/react-query'
 
 interface LayoutClientProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export default function LayoutClient({ children }: LayoutClientProps) {
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      {children}
+      <QueryClientProvider client={queryClient}>
+        <CssBaseline />
+        {children}
+      </QueryClientProvider>
     </ThemeProvider>
-  );
+  )
 }
