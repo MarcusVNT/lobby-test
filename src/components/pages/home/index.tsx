@@ -22,6 +22,9 @@ export default function Home() {
     return null
   }
 
+  const handleClick = () => {
+    router.push(`/formulario-de-resgate/${paramsID}`)
+  }
   return (
     <Stack alignItems="center" justifyContent="center" minHeight="100vh">
       <Stack
@@ -63,11 +66,7 @@ export default function Home() {
             </Stack>
           </Grid>
           <Grid size={12}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => router.push(`/formulario-de-resgate/${paramsID}`)}
-            >
+            <Button variant="contained" color="primary" onClick={handleClick}>
               Começar
             </Button>
           </Grid>
