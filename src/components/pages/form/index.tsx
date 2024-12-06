@@ -12,6 +12,8 @@ import { useParams, useRouter } from 'next/navigation'
 import { Controller, useForm } from 'react-hook-form'
 import masks from '../../utils/masks'
 import { Slide, toast } from 'react-toastify'
+import { useEffect, useState } from 'react'
+import { GetRedeemPageDetailsType } from '@/types/redeem-gift/getRedeemPageDetailsType'
 
 const brazilStates = [
   { label: 'Acre', value: 'AC' },
@@ -58,12 +60,21 @@ const countries = [
 export default function Form() {
   const router = useRouter()
   const params = useParams<{ id: string }>()
+  const [deatilsPage, setDetailsPage] = useState<
+    GetRedeemPageDetailsType | undefined
+  >(undefined)
 
-  const { data: redeemPageDetails } = useQuery({
-    queryKey: ['redeemPageDetails', params.id],
+  const { data: redeemPage } = useQuery({
+    queryKey: ['redeemPage', params.id],
     queryFn: () => getRedeemPageDetails(params.id),
     enabled: !!params.id,
   })
+
+  useEffect(() => {
+    if (redeemPage) {
+      setDetailsPage(redeemPage)
+    }
+  }, [redeemPage])
 
   const { handleSubmit, control } = useForm<PostRedeemGiftType>({
     defaultValues: {
@@ -86,7 +97,7 @@ export default function Form() {
         },
       ],
       items:
-        redeemPageDetails?.items.map(item => ({
+        deatilsPage?.items.map(item => ({
           customer_product_id: item.customer_product_id || '',
           size_name: '',
         })) || [],
@@ -99,7 +110,7 @@ export default function Form() {
     onSuccess: () => {
       toast.success('Presente resgatado com sucesso! 🎉🎁', {
         position: 'bottom-right',
-        autoClose: 5000,
+        autoClose: 6000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -127,24 +138,24 @@ export default function Form() {
   })
 
   const questionsText =
-    redeemPageDetails?.extra_questions?.filter(
+    deatilsPage?.extra_questions?.filter(
       question => question.answer_type === 'text',
     ) || []
 
   const questionsTextArea =
-    redeemPageDetails?.extra_questions?.filter(
+    deatilsPage?.extra_questions?.filter(
       question => question.answer_type === 'text_area',
     ) || []
   const questionsSelectOne =
-    redeemPageDetails?.extra_questions?.filter(
+    deatilsPage?.extra_questions?.filter(
       question => question.answer_type === 'select_one',
     ) || []
   const questionsDate =
-    redeemPageDetails?.extra_questions?.filter(
+    deatilsPage?.extra_questions?.filter(
       question => question.answer_type === 'date',
     ) || []
   const productSizes =
-    redeemPageDetails?.items.filter(item => item.sizes.length > 0) || []
+    deatilsPage?.items.filter(item => item.sizes.length > 0) || []
 
   const handleOnSubmit = (data: PostRedeemGiftType) => {
     if (!params.id) {
