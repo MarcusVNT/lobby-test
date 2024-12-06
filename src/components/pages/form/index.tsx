@@ -93,7 +93,7 @@ export default function Form() {
     },
   })
 
-  const { mutate } = useMutation({
+  const redeemGifts = useMutation({
     mutationFn: ({ id, data }: { id: string; data: PostRedeemGiftType }) =>
       postRedeemGift(id, data),
     onSuccess: () => {
@@ -163,7 +163,7 @@ export default function Form() {
       )
       return
     }
-    mutate({
+    redeemGifts.mutate({
       id: params.id,
       data,
     })
@@ -215,6 +215,7 @@ export default function Form() {
                     variant="standard"
                     size="small"
                     fullWidth
+                    disabled={redeemGifts.isPending}
                   />
                 )}
               />
@@ -235,6 +236,7 @@ export default function Form() {
                     variant="standard"
                     size="small"
                     fullWidth
+                    disabled={redeemGifts.isPending}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       field.onChange(masks.cpf_cnpj(e))
                     }
@@ -255,6 +257,7 @@ export default function Form() {
                     variant="standard"
                     size="small"
                     fullWidth
+                    disabled={redeemGifts.isPending}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       field.onChange(masks.phone(e))
                     }
@@ -284,6 +287,7 @@ export default function Form() {
                     variant="standard"
                     size="small"
                     fullWidth
+                    disabled={redeemGifts.isPending}
                   />
                 )}
               />
@@ -312,6 +316,7 @@ export default function Form() {
                     variant="standard"
                     size="small"
                     fullWidth
+                    disabled={redeemGifts.isPending}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       field.onChange(masks.cep(e))
                     }
@@ -335,6 +340,7 @@ export default function Form() {
                     variant="standard"
                     size="small"
                     fullWidth
+                    disabled={redeemGifts.isPending}
                   />
                 )}
               />
@@ -354,6 +360,7 @@ export default function Form() {
                     label="Número*"
                     variant="standard"
                     fullWidth
+                    disabled={redeemGifts.isPending}
                   />
                 )}
               />
@@ -368,6 +375,7 @@ export default function Form() {
                     label="Complemento"
                     variant="standard"
                     fullWidth
+                    disabled={redeemGifts.isPending}
                   />
                 )}
               />
@@ -387,6 +395,7 @@ export default function Form() {
                     label="Bairro*"
                     variant="standard"
                     fullWidth
+                    disabled={redeemGifts.isPending}
                   />
                 )}
               />
@@ -410,6 +419,7 @@ export default function Form() {
                     label="Cidade*"
                     variant="standard"
                     fullWidth
+                    disabled={redeemGifts.isPending}
                   />
                 )}
               />
@@ -430,6 +440,7 @@ export default function Form() {
                     variant="standard"
                     select
                     fullWidth
+                    disabled={redeemGifts.isPending}
                   >
                     {brazilStates.map(state => (
                       <MenuItem key={state.value} value={state.value}>
@@ -447,15 +458,17 @@ export default function Form() {
                 rules={{
                   required: 'Seleção de um país é obrigatório.',
                 }}
-                render={({ field }) => (
+                render={({ field, fieldState: { error, invalid } }) => (
                   <TextField
                     {...field}
-                    defaultValue="BR"
-                    value={field.value}
+                    error={invalid}
+                    helperText={error?.message}
+                    value={field.value || ''}
                     label="País*"
                     variant="standard"
                     select
                     fullWidth
+                    disabled={redeemGifts.isPending}
                   >
                     {countries.map(country => (
                       <MenuItem key={country.value} value={country.value}>
@@ -504,6 +517,7 @@ export default function Form() {
                         size="small"
                         select
                         fullWidth
+                        disabled={redeemGifts.isPending}
                       >
                         {product.sizes.map(size => (
                           <MenuItem key={size.id} value={size.name}>
@@ -539,6 +553,7 @@ export default function Form() {
                           variant="standard"
                           size="small"
                           fullWidth
+                          disabled={redeemGifts.isPending}
                           error={!!error}
                           helperText={error?.message}
                         />
@@ -563,6 +578,7 @@ export default function Form() {
                           size="small"
                           type="date"
                           fullWidth
+                          disabled={redeemGifts.isPending}
                           slotProps={{
                             inputLabel: { shrink: true },
                           }}
@@ -589,6 +605,7 @@ export default function Form() {
                           size="small"
                           select
                           fullWidth
+                          disabled={redeemGifts.isPending}
                         >
                           {question.options.map((option, index) => (
                             <MenuItem key={index} value={option}>
@@ -615,6 +632,7 @@ export default function Form() {
                           variant="outlined"
                           size="small"
                           fullWidth
+                          disabled={redeemGifts.isPending}
                           multiline
                           sx={{
                             borderColor: '#B1B9C5',
@@ -634,10 +652,16 @@ export default function Form() {
               color="primary"
               variant="outlined"
               onClick={() => router.push(`/${params}`)}
+              disabled={redeemGifts.isPending}
             >
               Voltar
             </Button>
-            <Button color="primary" variant="contained" type="submit">
+            <Button
+              color="primary"
+              variant="contained"
+              type="submit"
+              disabled={redeemGifts.isPending}
+            >
               Concluir
             </Button>
           </Stack>
