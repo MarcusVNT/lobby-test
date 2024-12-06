@@ -20,22 +20,20 @@ export default function Home() {
   })
 
   if (data?.status !== 'ACTIVE') {
-    function handleRedirect() {
-      toast.error('Página de resgate não encontrada.'),
-        {
-          position: 'bottom-right',
-          autoClose: 6000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'dark',
-          transition: Slide,
-        }
-      router.push('/')
-    }
-    return handleRedirect()
+    toast.error('Página de resgate não encontrada.'),
+      {
+        position: 'bottom-right',
+        autoClose: 6000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+        transition: Slide,
+      }
+    router.push('/')
+    return null
   }
 
   const handleClick = () => {
