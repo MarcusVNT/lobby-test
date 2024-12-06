@@ -5,7 +5,6 @@ Este projeto foi desenvolvido como parte de um teste para uma vaga de desenvolve
 ## Fluxo da Aplicação
 
 1. **Tela de Boas-Vindas**: O usuário é apresentado a uma página de boas-vindas com um botão que o direciona para a próxima etapa.
-   
 2. **Tela de Formulário**: O usuário preenche um formulário com perguntas sobre dados pessoais, endereço e, caso necessário, informações sobre o tamanho de algum produto que ele receberá. Há também perguntas extras que podem ser exibidas, dependendo da lógica do sistema.
 
 3. **Tela de Conclusão**: Após o envio do formulário, se os dados forem validados corretamente, o usuário é redirecionado para a tela de finalização, com a confirmação de que o pedido de resgate foi feito com sucesso. Caso haja erros, um toast de erro é exibido.
@@ -31,6 +30,7 @@ NEXT_PUBLIC_API_KEY=2adzvI66EeGBSGDv_TNqdFaq73ZVAJtb6R7QeUrXDuo
 ```
 
 ## Como Rodar o Projeto
+
 1. Clone o repositório:
 
 ```bash
@@ -52,12 +52,9 @@ npm run dev
 4. Acesse a aplicação em "http://localhost:3000" e adicione no domínio "/5c7e9bc8-e063-4d86-8e2c-eccce6f3ee1c"
 
 ## Link de Produção
+
 A aplicação também está hospedada na Vercel e pode ser acessada [AQUI](https://lobby-test-marcusvnt.vercel.app/5c7e9bc8-e063-4d86-8e2c-eccce6f3ee1c).
 
+## Melhorias Futuras
 
-
-
-
-
-
-
+1. Para melhor experiência do usuário, seria legal fazer a integração com alguma API de CEP, para quando o usuário digitar, o endereço ser buscado automáticamente.
