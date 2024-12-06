@@ -32,7 +32,6 @@ export default function Home() {
         theme: 'dark',
         transition: Slide,
       }
-    return null
   }
 
   const handleClick = () => {
