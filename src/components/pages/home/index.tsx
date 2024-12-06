@@ -19,7 +19,7 @@ export default function Home() {
     queryFn: () => getRedeemPageDetails(paramsID),
   })
 
-  if (data?.status !== 'ACTIVE') {
+  if (data?.status === 'INACTIVE') {
     toast.error('Página de resgate não encontrada.'),
       {
         position: 'bottom-right',
@@ -32,7 +32,6 @@ export default function Home() {
         theme: 'dark',
         transition: Slide,
       }
-    router.push('/')
     return null
   }
 
@@ -68,7 +67,7 @@ export default function Home() {
                 component="h1"
                 fontSize={{ xs: '1.625rem', md: '2.5rem' }}
               >
-                {data.title}
+                {data?.title}
               </Typography>
               <Typography
                 color="primary.light"
