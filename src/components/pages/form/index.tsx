@@ -60,7 +60,7 @@ const countries = [
 export default function Form() {
   const router = useRouter()
   const params = useParams<{ id: string }>()
-  const [deatilsPage, setDetailsPage] = useState<
+  const [detailsPage, setDetailsPage] = useState<
     GetRedeemPageDetailsType | undefined
   >(undefined)
 
@@ -97,7 +97,7 @@ export default function Form() {
         },
       ],
       items:
-        deatilsPage?.items.map(item => ({
+        detailsPage?.items.map(item => ({
           customer_product_id: item.customer_product_id || '',
           size_name: '',
         })) || [],
@@ -137,25 +137,26 @@ export default function Form() {
     },
   })
 
+  const extraQuestions = detailsPage?.extra_questions || []
   const questionsText =
-    deatilsPage?.extra_questions?.filter(
+    detailsPage?.extra_questions?.filter(
       question => question.answer_type === 'text',
     ) || []
 
   const questionsTextArea =
-    deatilsPage?.extra_questions?.filter(
+    detailsPage?.extra_questions?.filter(
       question => question.answer_type === 'text_area',
     ) || []
   const questionsSelectOne =
-    deatilsPage?.extra_questions?.filter(
+    detailsPage?.extra_questions?.filter(
       question => question.answer_type === 'select_one',
     ) || []
   const questionsDate =
-    deatilsPage?.extra_questions?.filter(
+    detailsPage?.extra_questions?.filter(
       question => question.answer_type === 'date',
     ) || []
   const productSizes =
-    deatilsPage?.items.filter(item => item.sizes.length > 0) || []
+    detailsPage?.items.filter(item => item.sizes.length > 0) || []
 
   const handleOnSubmit = (data: PostRedeemGiftType) => {
     if (!params.id) {
@@ -493,11 +494,13 @@ export default function Form() {
           </Grid>
 
           <Grid container spacing="20px" marginBottom="40px">
-            <Grid size={12} marginBottom="12px">
-              <Typography variant="h2" component="h2" fontWeight="600">
-                Tamanhos
-              </Typography>
-            </Grid>
+            {productSizes.length > 0 && (
+              <Grid size={12} marginBottom="12px">
+                <Typography variant="h2" component="h2" fontWeight="600">
+                  Tamanhos
+                </Typography>
+              </Grid>
+            )}
 
             {productSizes.length > 0 &&
               productSizes?.map((product, index) => (
@@ -543,11 +546,13 @@ export default function Form() {
           </Grid>
 
           <Grid container spacing="20px">
-            <Grid size={12} marginBottom="12px">
-              <Typography variant="h2" component="h2" fontWeight="600">
-                Perguntas extras
-              </Typography>
-            </Grid>
+            {extraQuestions.length > 0 && (
+              <Grid size={12} marginBottom="12px">
+                <Typography variant="h2" component="h2" fontWeight="600">
+                  Perguntas extras
+                </Typography>
+              </Grid>
+            )}
 
             <Grid size={12} marginBottom="12px">
               {questionsText.length > 0 &&
