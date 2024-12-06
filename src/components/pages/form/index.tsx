@@ -10,7 +10,8 @@ import Grid from '@mui/material/Grid2'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useParams, useRouter } from 'next/navigation'
 import { Controller, useForm } from 'react-hook-form'
-import masks from '../utils/masks'
+import masks from '../../utils/masks'
+import { Slide, toast } from 'react-toastify'
 
 const brazilStates = [
   { label: 'Acre', value: 'AC' },
@@ -18,6 +19,7 @@ const brazilStates = [
   { label: 'Amazonas', value: 'AM' },
   { label: 'Bahia', value: 'BA' },
   { label: 'Ceará', value: 'CE' },
+  { label: 'Distrito Federal', value: 'DF' },
   { label: 'Espírito Santo', value: 'ES' },
   { label: 'Goiás', value: 'GO' },
   { label: 'Maranhão', value: 'MA' },
@@ -38,7 +40,6 @@ const brazilStates = [
   { label: 'São Paulo', value: 'SP' },
   { label: 'Sergipe', value: 'SE' },
   { label: 'Tocantins', value: 'TO' },
-  { label: 'Distrito Federal', value: 'DF' },
 ]
 
 const countries = [
@@ -96,11 +97,32 @@ export default function Form() {
     mutationFn: ({ id, data }: { id: string; data: PostRedeemGiftType }) =>
       postRedeemGift(id, data),
     onSuccess: () => {
+      toast.success('Presente resgatado com sucesso! 🎉🎁', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'colored',
+        transition: Slide,
+      })
       router.push('/presente-resgatado')
-      console.log('submit')
     },
-    onError: error => {
-      console.error(error)
+    onError: () => {
+      toast.error(
+        'Erro ao resgatar presente. Tente novamente ou entre em contato com o suporte.',
+        {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: 'colored',
+          transition: Slide,
+        },
+      )
     },
   })
 
@@ -126,14 +148,25 @@ export default function Form() {
 
   const handleOnSubmit = (data: PostRedeemGiftType) => {
     if (!params.id) {
-      console.error('ID do resgate não encontrado')
+      toast.error(
+        'Erro ao resgatar presente. Tente novamente ou entre em contato com o suporte.',
+        {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: 'colored',
+          transition: Slide,
+        },
+      )
       return
     }
     mutate({
       id: params.id,
       data,
     })
-    console.log('data: ', data)
   }
 
   return (
@@ -411,11 +444,15 @@ export default function Form() {
               <Controller
                 name="redeemer_country"
                 control={control}
+                rules={{
+                  required: 'Seleção de um país é obrigatório.',
+                }}
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    value={field.value || ''}
-                    label="País"
+                    defaultValue="BR"
+                    value={field.value}
+                    label="País*"
                     variant="standard"
                     select
                     fullWidth
@@ -518,11 +555,6 @@ export default function Form() {
                       name={`extra_question_responses.${question.id}.answer`}
                       control={control}
                       render={({ field }) => (
-                        // <DatePicker
-                        //   {...field}
-                        //   value={field.value || null}
-                        //   label="Data de nascimento"
-                        // />
                         <TextField
                           {...field}
                           value={field.value || ''}
