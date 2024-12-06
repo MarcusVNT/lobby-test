@@ -8,6 +8,7 @@ import Point from '/public/images/point.svg'
 import { useRouter } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
 import { getRedeemPageDetails } from '@/api/redeem-gift/redeem-gift'
+import { Slide, toast } from 'react-toastify'
 
 export default function Home() {
   const router = useRouter()
@@ -18,10 +19,28 @@ export default function Home() {
     queryFn: () => getRedeemPageDetails(paramsID),
   })
 
-  if (!data) {
-    return null
+  if (data?.status !== 'ACTIVE') {
+    function handleRedirect() {
+      toast.error('Página de resgate não encontrada.'),
+        {
+          position: 'bottom-right',
+          autoClose: 6000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+          transition: Slide,
+        }
+      router.push('/')
+    }
+    return handleRedirect()
   }
 
+  const handleClick = () => {
+    router.push(`/formulario-de-resgate/${paramsID}`)
+  }
   return (
     <Stack alignItems="center" justifyContent="center" minHeight="100vh">
       <Stack
@@ -63,11 +82,7 @@ export default function Home() {
             </Stack>
           </Grid>
           <Grid size={12}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => router.push(`/formulario-de-resgate/${paramsID}`)}
-            >
+            <Button variant="contained" color="primary" onClick={handleClick}>
               Começar
             </Button>
           </Grid>
