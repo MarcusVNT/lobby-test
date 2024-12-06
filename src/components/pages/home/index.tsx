@@ -9,17 +9,25 @@ import { useRouter } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
 import { getRedeemPageDetails } from '@/api/redeem-gift/redeem-gift'
 import { Slide, toast } from 'react-toastify'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
   const router = useRouter()
   const paramsID = '5c7e9bc8-e063-4d86-8e2c-eccce6f3ee1c'
+  const [title, setTitle] = useState('')
 
-  const { data } = useQuery({
+  const { data: dataPage } = useQuery({
     queryKey: ['redeemPage', paramsID],
     queryFn: () => getRedeemPageDetails(paramsID),
   })
 
-  if (data?.status === 'INACTIVE') {
+  useEffect(() => {
+    if (dataPage) {
+      setTitle(dataPage.title)
+    }
+  }, [dataPage])
+
+  if (dataPage?.status === 'INACTIVE') {
     toast.error('Página de resgate não encontrada.'),
       {
         position: 'bottom-right',
@@ -66,7 +74,7 @@ export default function Home() {
                 component="h1"
                 fontSize={{ xs: '1.625rem', md: '2.5rem' }}
               >
-                {data?.title}
+                {title}
               </Typography>
               <Typography
                 color="primary.light"
